@@ -1,0 +1,323 @@
+# baseURI: http://ontology.tno.nl/saref/sampledata
+# imports: http://ontology.tno.nl/saref
+
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix saref: <http://ontology.tno.nl/saref#> .
+@prefix sarefsampledata: <http://ontology.tno.nl/saref/sampledata#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+saref:ActuatingFunction_1
+  rdf:type saref:ActuatingFunction ;
+  rdfs:label "Actuating function 1"^^xsd:string ;
+.
+saref:BuildingObject_1
+  rdf:type saref:BuildingObject ;
+  rdfs:label "Building object 1"^^xsd:string ;
+.
+saref:BuildingSpace_1
+  rdf:type saref:BuildingSpace ;
+  saref:contains saref:MainDoor_1 ;
+  saref:hasSpaceType "Apartment 1 hall"^^xsd:string ;
+  rdfs:label "Building space 1"^^xsd:string ;
+.
+saref:BuildingSpace_2
+  rdf:type saref:BuildingSpace ;
+  saref:contains saref:WashingMachine_1 ;
+  saref:hasSpaceType "Laundry room"^^xsd:string ;
+  rdfs:label "Building space 2"^^xsd:string ;
+.
+saref:CloseCommand_1
+  rdf:type saref:CloseCommand ;
+  saref:actsUpon saref:state_CLOSE ;
+  rdfs:label "Close command 1"^^xsd:string ;
+.
+saref:CloseCommand_2
+  rdf:type saref:CloseCommand ;
+  rdfs:label "Close command 2"^^xsd:string ;
+.
+saref:Command_1
+  rdf:type saref:Command ;
+  rdfs:label "Command 1"^^xsd:string ;
+.
+saref:Energy_1
+  rdf:type saref:Energy ;
+  saref:hasValue "100"^^xsd:string ;
+  saref:isMeasuredIn saref:watt_hour ;
+  rdfs:label "Energy 1"^^xsd:string ;
+.
+saref:EventFunction_1
+  rdf:type saref:EventFunction ;
+  rdfs:label "Event function 1"^^xsd:string ;
+.
+saref:GetCommand_1
+  rdf:type saref:GetCommand ;
+  rdfs:label "Get command 1"^^xsd:string ;
+.
+saref:LevelControlFunction_1
+  rdf:type saref:LevelControlFunction ;
+  rdfs:label "Level control function 1"^^xsd:string ;
+.
+saref:LightSwitch_1
+  rdf:type saref:LightSwitch ;
+  saref:IsUsedFor saref:Light_1 ;
+  saref:hasCategory saref:Actuator ;
+  saref:hasFunction saref:OnOffFunction_1 ;
+  saref:hasManufacturer "guggu"^^xsd:string ;
+  saref:hasModel "890-09w"^^xsd:string ;
+  saref:hasState [
+      rdf:type owl:Class ;
+      owl:unionOf (
+          saref:OnState
+          saref:OffState
+        ) ;
+    ] ;
+  saref:offers saref:SwitchOnService_1 ;
+  rdfs:label "Light switch 1"^^xsd:string ;
+.
+saref:Light_1
+  rdf:type saref:Light ;
+  saref:hasValue "3000"^^xsd:string ;
+  saref:isMeasuredIn <http://www.wurvoc.org/vocabularies/om-1.8/lux> ;
+  rdfs:label "Light 1"^^xsd:string ;
+.
+saref:MainDoor_1
+  rdf:type saref:Door ;
+  rdfs:label "Main door 1"^^xsd:string ;
+.
+saref:MeteringFunction_1
+  rdf:type saref:MeteringFunction ;
+  rdfs:label "Metering function 1"^^xsd:string ;
+.
+saref:OffCommand_1
+  rdf:type saref:OffCommand ;
+  saref:actsUpon saref:ON_state ;
+  rdfs:label "Off command 1"^^xsd:string ;
+.
+saref:OnCommand_1
+  rdf:type saref:OnCommand ;
+  saref:actsUpon saref:OFF_state ;
+  rdfs:label "On command 1"^^xsd:string ;
+.
+saref:OnOffFunction_1
+  rdf:type saref:OnOffFunction ;
+  rdfs:label "On off function 1"^^xsd:string ;
+.
+saref:OpenCloseFunction_1
+  rdf:type saref:OpenCloseFunction ;
+  rdfs:label "Open close function 1"^^xsd:string ;
+.
+saref:Power_1
+  rdf:type saref:Power ;
+  saref:hasValue "0.65"^^xsd:string ;
+  saref:isMeasuredIn <http://www.wurvoc.org/vocabularies/om-1.8/kilowatt> ;
+  rdfs:label "Power 1"^^xsd:string ;
+.
+saref:Price_1
+  rdf:type saref:Price ;
+  saref:hasValue "16.3"^^xsd:string ;
+  saref:isMeasuredIn <http://www.wurvoc.org/vocabularies/om-1.8/euro> ;
+  rdfs:label "Price 1"^^xsd:string ;
+.
+saref:Profile_1
+  rdf:type saref:Profile ;
+  saref:hasConsumption saref:Power_1 ;
+  saref:hasPrice saref:Price_1 ;
+  saref:hasTime saref:Time_1 ;
+  saref:isFlexible "true"^^xsd:boolean ;
+  saref:isInterrupionPossible "false"^^xsd:boolean ;
+  rdfs:label "Profile 1"^^xsd:string ;
+.
+saref:Profile_2
+  rdf:type saref:Profile ;
+  saref:hasConsumption saref:Power_1 ;
+  saref:hasTime saref:Time_2 ;
+  saref:isFlexible "false"^^xsd:boolean ;
+  saref:isInterrupionPossible "true"^^xsd:boolean ;
+  rdfs:label "Profile 2"^^xsd:string ;
+.
+saref:SensingFunction_1
+  rdf:type saref:SensingFunction ;
+  rdfs:label "Sensing function 1"^^xsd:string ;
+.
+saref:Sensor_1
+  rdf:type saref:Sensor ;
+  saref:hasCategory saref:Sensor ;
+  saref:hasFunction saref:SensingFunction ;
+  saref:hasManufacturer "abc"^^xsd:string ;
+  saref:hasModel "12345A"^^xsd:string ;
+  rdfs:label "Sensor 1"^^xsd:string ;
+.
+saref:Sensor_2
+  rdf:type saref:Sensor ;
+  saref:hasCategory saref:Sensor ;
+  saref:hasFunction saref:SensingFunction ;
+  saref:hasManufacturer "bhg"^^xsd:string ;
+  saref:hasModel "65327D"^^xsd:string ;
+  rdfs:label "Sensor 2"^^xsd:string ;
+.
+saref:Sensor_3
+  rdf:type saref:Sensor ;
+  saref:IsUsedFor [
+      rdf:type owl:Class ;
+      owl:intersectionOf (
+          saref:Humidity
+          saref:Temperature
+        ) ;
+    ] ;
+  saref:consistsOf saref:TemperatureSensor_1 ;
+  saref:hasCategory saref:Sensor ;
+  saref:hasFunction saref:SensingFunction ;
+  saref:hasManufacturer "hgd"^^xsd:string ;
+  saref:hasModel "89353K"^^xsd:string ;
+  rdfs:label "Sensor 3"^^xsd:string ;
+.
+saref:StartCommand_1
+  rdf:type saref:StartCommand ;
+  saref:actsUpon saref:StopState ;
+  rdfs:label "Start command 1"^^xsd:string ;
+.
+saref:StartService_1
+  rdf:type saref:Service ;
+  saref:hasInputParameter saref:StopState ;
+  saref:hasOutputParameter saref:StartState ;
+  saref:isOfferedBy saref:WashingMachine_1 ;
+  saref:represents saref:StartStopFunction_1 ;
+  rdfs:label "Start service 1"^^xsd:string ;
+.
+saref:StartStopFunction_1
+  rdf:type saref:StartStopFunction ;
+  saref:hasCommand saref:StartCommand_1 ;
+  saref:hasCommand saref:StopCommand_1 ;
+  rdfs:label "Start stop function 1"^^xsd:string ;
+.
+saref:StopCommand
+  saref:actsUpon saref:StartState ;
+.
+saref:StopCommand_1
+  rdf:type saref:StopCommand ;
+  rdfs:label "Stop command 1"^^xsd:string ;
+.
+saref:SwitchOnService_1
+  rdf:type saref:SwitchOnService ;
+  saref:hasInputParameter saref:OffState ;
+  saref:hasOutputParameter saref:OnState ;
+  saref:isOfferedBy saref:LightSwitch_1 ;
+  saref:represents saref:OnOffFunction_1 ;
+  rdfs:label "Switch on service 1"^^xsd:string ;
+.
+saref:TemperatureSensor_1
+  rdf:type saref:TemperatureSensor ;
+  saref:IsUsedFor saref:Temperature ;
+  saref:hasCategory saref:Sensor ;
+  saref:hasFunction saref:SensingFunction ;
+  saref:hasManufacturer "abc"^^xsd:string ;
+  saref:hasModel "153899L"^^xsd:string ;
+  rdfs:label "Temperature sensor 1"^^xsd:string ;
+.
+saref:Temperature_1
+  rdf:type saref:Temperature ;
+  saref:hasValue "14"^^xsd:string ;
+  saref:isMeasuredIn <http://www.wurvoc.org/vocabularies/om-1.8/degree_Celsius> ;
+  rdfs:label "Temperature 1"^^xsd:string ;
+.
+saref:Temperature_2
+  rdf:type saref:Temperature ;
+  saref:hasValue "3"^^xsd:string ;
+  saref:isMeasuredIn <http://www.wurvoc.org/vocabularies/om-1.8/kelvin> ;
+  rdfs:label "Temperature 2"^^xsd:string ;
+.
+saref:Temperature_3
+  rdf:type saref:Temperature ;
+  saref:hasValue "90"^^xsd:string ;
+  saref:isMeasuredIn <http://www.wurvoc.org/vocabularies/om-1.8/degree_Fahrenheit> ;
+  rdfs:label "Temperature 3"^^xsd:string ;
+.
+saref:Temperature_4
+  rdf:type saref:Temperature ;
+  saref:hasValue "24"^^xsd:string ;
+  saref:isMeasuredIn <http://www.wurvoc.org/vocabularies/om-1.8/degree_Celsius> ;
+  rdfs:label "Temperature 4"^^xsd:string ;
+.
+saref:Time_1
+  rdf:type saref:Time ;
+  saref:consistsOf time:Interval_1 ;
+  saref:hasValue "80"^^xsd:string ;
+  saref:isMeasuredIn time:unitMinute ;
+  rdfs:label "Time 1"^^xsd:string ;
+.
+saref:Time_2
+  rdf:type saref:Time ;
+  saref:consistsOf time:Interval_2 ;
+  saref:hasValue "1"^^xsd:string ;
+  saref:isMeasuredIn time:unitHour ;
+  rdfs:label "Time 2"^^xsd:string ;
+.
+saref:WashingMachine_1
+  rdf:type saref:WashingMachine ;
+  saref:accomplishes saref:Washing ;
+  saref:hasCategory [
+      rdf:type owl:Class ;
+      owl:unionOf (
+          saref:Appliance
+          saref:Load
+        ) ;
+    ] ;
+  saref:hasFunction saref:StartStopFunction_1 ;
+  saref:hasManufacturer "hgfds"^^xsd:string ;
+  saref:hasModel "45609WQ"^^xsd:string ;
+  saref:hasProfile saref:Profile_1 ;
+  saref:hasState [
+      rdf:type owl:Class ;
+      owl:unionOf (
+          saref:StartState
+          saref:StopState
+        ) ;
+    ] ;
+  saref:hasTypicalConsumption saref:Power_1 ;
+  saref:isLocatedIn saref:BuildingSpace_2 ;
+  saref:offers saref:StartService_1 ;
+  rdfs:label "Washing machine 1"^^xsd:string ;
+.
+saref:state_CLOSE
+  saref:actsUpon saref:state_CLOSE ;
+.
+<http://ontology.tno.nl/saref/sampledata>
+  rdf:type owl:Ontology ;
+  owl:imports <http://ontology.tno.nl/saref> ;
+  owl:versionInfo "Created with TopBraid Composer"^^xsd:string ;
+.
+time:Instant_1
+  rdf:type time:Instant ;
+  rdfs:label "Instant 1"^^xsd:string ;
+  time:inXSDDateTime "2015-03-17T11:10:50.53"^^xsd:dateTime ;
+.
+time:Instant_2
+  rdf:type time:Instant ;
+  rdfs:label "Instant 2"^^xsd:string ;
+  time:inXSDDateTime "2015-03-17T12:30:51.116"^^xsd:dateTime ;
+.
+time:Instant_3
+  rdf:type time:Instant ;
+  rdfs:label "Instant 3"^^xsd:string ;
+  time:inXSDDateTime "2015-03-30T02:15:05.803"^^xsd:dateTime ;
+.
+time:Instant_4
+  rdf:type time:Instant ;
+  rdfs:label "Instant 4"^^xsd:string ;
+  time:inXSDDateTime "2015-03-30T03:15:29.111"^^xsd:dateTime ;
+.
+time:Interval_1
+  rdf:type time:Interval ;
+  rdfs:label "Interval 1"^^xsd:string ;
+  time:hasBeginning time:Instant_1 ;
+  time:hasEnd time:Instant_2 ;
+.
+time:Interval_2
+  rdf:type time:Interval ;
+  rdfs:label "Interval 2"^^xsd:string ;
+  time:hasBeginning time:Instant_3 ;
+  time:hasEnd time:Instant_4 ;
+.

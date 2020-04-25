@@ -1,0 +1,328 @@
+# baseURI: http://ontology.tno.nl/saref2fanfpai
+# imports: http://ontology.tno.nl/fanfpai/sampledata
+# imports: http://ontology.tno.nl/saref/sampledata
+# imports: http://topbraid.org/spin/spinmapl
+
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix p1: <http://ontology.tno.nl/saref2fanfpai#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix saref2fanfpai: <http://ontology.tno.nl/saref2fanfpai#> .
+@prefix sp: <http://spinrdf.org/sp#> .
+@prefix spin: <http://spinrdf.org/spin#> .
+@prefix spinmap: <http://spinrdf.org/spinmap#> .
+@prefix spinmapl: <http://topbraid.org/spin/spinmapl#> .
+@prefix spl: <http://spinrdf.org/spl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://ontology.tno.nl/saref2fanfpai>
+  rdf:type owl:Ontology ;
+  owl:imports <http://ontology.tno.nl/fanfpai/sampledata> ;
+  owl:imports <http://ontology.tno.nl/saref/sampledata> ;
+  owl:imports <http://topbraid.org/spin/spinmapl> ;
+  owl:versionInfo "Created with TopBraid Composer"^^xsd:string ;
+.
+saref2fanfpai:Buffer-EnergyRelated
+  rdf:type spinmap:Context ;
+  spinmap:sourceClass <http://sites.google.com/site/smartappliancesproject/ontologies/fanfpai#Buffer> ;
+  spinmap:target [
+      rdf:type spinmapl:self ;
+      spinmap:source spinmap:_source ;
+    ] ;
+  spinmap:targetClass <http://ontology.tno.nl/saref#EnergyRelated> ;
+.
+saref2fanfpai:BufferControlSpace-FunctionCategory
+  rdf:type spinmap:Context ;
+  spinmap:sourceClass <http://sites.google.com/site/smartappliancesproject/ontologies/fanfpai#BufferControlSpace> ;
+  spinmap:target [
+      rdf:type spinmapl:self ;
+      spinmap:source spinmap:_source ;
+    ] ;
+  spinmap:targetClass <http://ontology.tno.nl/saref#FunctionCategory> ;
+.
+saref2fanfpai:ControlSpace-Function
+  rdf:type spinmap:Context ;
+  spinmap:sourceClass <http://sites.google.com/site/smartappliancesproject/ontologies/fanfpai#ControlSpace> ;
+  spinmap:target [
+      rdf:type spinmapl:self ;
+      spinmap:source spinmap:_source ;
+    ] ;
+  spinmap:targetClass <http://ontology.tno.nl/saref#Function> ;
+.
+saref2fanfpai:Duration-Interval
+  rdf:type spinmap:Context ;
+  spinmap:sourceClass <http://sites.google.com/site/smartappliancesproject/ontologies/fanfpai#Duration> ;
+  spinmap:target [
+      rdf:type spinmapl:self ;
+      spinmap:source spinmap:_source ;
+    ] ;
+  spinmap:targetClass <http://www.w3.org/2006/time#Interval> ;
+.
+saref2fanfpai:Duration-Time
+  rdf:type spinmap:Context ;
+  spinmap:sourceClass <http://sites.google.com/site/smartappliancesproject/ontologies/fanfpai#Duration> ;
+  spinmap:target [
+      rdf:type spinmapl:self ;
+      spinmap:source spinmap:_source ;
+    ] ;
+  spinmap:targetClass <http://ontology.tno.nl/saref#Time> ;
+.
+saref2fanfpai:DurationUnit-TemporalUnit
+  rdf:type spinmap:Context ;
+  spinmap:sourceClass <http://sites.google.com/site/smartappliancesproject/ontologies/fanfpai#DurationUnit> ;
+  spinmap:target [
+      rdf:type spinmapl:self ;
+      spinmap:source spinmap:_source ;
+    ] ;
+  spinmap:targetClass <http://www.w3.org/2006/time#TemporalUnit> ;
+.
+saref2fanfpai:Element-Profile
+  rdf:type spinmap:Context ;
+  spinmap:sourceClass <http://sites.google.com/site/smartappliancesproject/ontologies/fanfpai#Element> ;
+  spinmap:target [
+      rdf:type spinmapl:self ;
+      spinmap:source spinmap:_source ;
+    ] ;
+  spinmap:targetClass <http://ontology.tno.nl/saref#Profile> ;
+.
+saref2fanfpai:Energy-Energy
+  rdf:type spinmap:Context ;
+  spinmap:sourceClass <http://sites.google.com/site/smartappliancesproject/ontologies/fanfpai#Energy> ;
+  spinmap:target [
+      rdf:type spinmapl:self ;
+      spinmap:source spinmap:_source ;
+    ] ;
+  spinmap:targetClass <http://ontology.tno.nl/saref#Energy> ;
+.
+saref2fanfpai:EnergyProfile-Profile
+  rdf:type spinmap:Context ;
+  spinmap:sourceClass <http://sites.google.com/site/smartappliancesproject/ontologies/fanfpai#EnergyProfile> ;
+  spinmap:target [
+      rdf:type spinmapl:self ;
+      spinmap:source spinmap:_source ;
+    ] ;
+  spinmap:targetClass <http://ontology.tno.nl/saref#Profile> ;
+.
+saref2fanfpai:EnergyStorage-EnergyRelated
+  rdf:type spinmap:Context ;
+  spinmap:sourceClass <http://sites.google.com/site/smartappliancesproject/ontologies/fanfpai#EnergyStorage> ;
+  spinmap:target [
+      rdf:type spinmapl:self ;
+      spinmap:source spinmap:_source ;
+    ] ;
+  spinmap:targetClass <http://ontology.tno.nl/saref#EnergyRelated> ;
+.
+saref2fanfpai:EnergyUnit-EnergyUnit
+  rdf:type spinmap:Context ;
+  spinmap:sourceClass <http://sites.google.com/site/smartappliancesproject/ontologies/fanfpai#EnergyUnit> ;
+  spinmap:target [
+      rdf:type spinmapl:self ;
+      spinmap:source spinmap:_source ;
+    ] ;
+  spinmap:targetClass <http://ontology.tno.nl/saref#EnergyUnit> ;
+.
+saref2fanfpai:Power-Power
+  rdf:type spinmap:Context ;
+  spinmap:sourceClass <http://sites.google.com/site/smartappliancesproject/ontologies/fanfpai#Power> ;
+  spinmap:target [
+      rdf:type spinmapl:self ;
+      spinmap:source spinmap:_source ;
+    ] ;
+  spinmap:targetClass <http://ontology.tno.nl/saref#Power> ;
+.
+saref2fanfpai:PowerUnit-PowerUnit
+  rdf:type spinmap:Context ;
+  spinmap:sourceClass <http://sites.google.com/site/smartappliancesproject/ontologies/fanfpai#PowerUnit> ;
+  spinmap:target [
+      rdf:type spinmapl:self ;
+      spinmap:source spinmap:_source ;
+    ] ;
+  spinmap:targetClass <http://ontology.tno.nl/saref#PowerUnit> ;
+.
+saref2fanfpai:Resource-Device
+  rdf:type spinmap:Context ;
+  spinmap:sourceClass <http://sites.google.com/site/smartappliancesproject/ontologies/fanfpai#Resource> ;
+  spinmap:target [
+      rdf:type spinmapl:self ;
+      spinmap:source spinmap:_source ;
+    ] ;
+  spinmap:targetClass <http://ontology.tno.nl/saref#Device> ;
+.
+saref2fanfpai:TimeShifter-EnergyRelated
+  rdf:type spinmap:Context ;
+  spinmap:sourceClass <http://sites.google.com/site/smartappliancesproject/ontologies/fanfpai#TimeShifter> ;
+  spinmap:target [
+      rdf:type spinmapl:self ;
+      spinmap:source spinmap:_source ;
+    ] ;
+  spinmap:targetClass <http://ontology.tno.nl/saref#EnergyRelated> ;
+.
+saref2fanfpai:TimeShifterControlSpace-FunctionCategory
+  rdf:type spinmap:Context ;
+  spinmap:sourceClass <http://sites.google.com/site/smartappliancesproject/ontologies/fanfpai#TimeShifterControlSpace> ;
+  spinmap:target [
+      rdf:type spinmapl:self ;
+      spinmap:source spinmap:_source ;
+    ] ;
+  spinmap:targetClass <http://ontology.tno.nl/saref#FunctionCategory> ;
+.
+saref2fanfpai:UncontrolledControlSpace-FunctionCategory
+  rdf:type spinmap:Context ;
+  spinmap:sourceClass <http://sites.google.com/site/smartappliancesproject/ontologies/fanfpai#UncontrolledControlSpace> ;
+  spinmap:target [
+      rdf:type spinmapl:self ;
+      spinmap:source spinmap:_source ;
+    ] ;
+  spinmap:targetClass <http://ontology.tno.nl/saref#FunctionCategory> ;
+.
+saref2fanfpai:UncontrolledLoadOrGeneration-EnergyRelated
+  rdf:type spinmap:Context ;
+  spinmap:sourceClass <http://sites.google.com/site/smartappliancesproject/ontologies/fanfpai#UncontrolledLoadOrGeneration> ;
+  spinmap:target [
+      rdf:type spinmapl:self ;
+      spinmap:source spinmap:_source ;
+    ] ;
+  spinmap:targetClass <http://ontology.tno.nl/saref#EnergyRelated> ;
+.
+<http://sites.google.com/site/smartappliancesproject/ontologies/fanfpai#Buffer>
+  spinmap:rule [
+      rdf:type spinmap:Mapping-0-1 ;
+      spinmap:context saref2fanfpai:Buffer-EnergyRelated ;
+      spinmap:expression <http://ontology.tno.nl/saref#EnergyRelated> ;
+      spinmap:targetPredicate1 rdf:type ;
+    ] ;
+.
+<http://sites.google.com/site/smartappliancesproject/ontologies/fanfpai#BufferControlSpace>
+  spinmap:rule [
+      rdf:type spinmap:Mapping-0-1 ;
+      spinmap:context saref2fanfpai:BufferControlSpace-FunctionCategory ;
+      spinmap:expression <http://ontology.tno.nl/saref#FunctionCategory> ;
+      spinmap:targetPredicate1 rdf:type ;
+    ] ;
+.
+<http://sites.google.com/site/smartappliancesproject/ontologies/fanfpai#ControlSpace>
+  spinmap:rule [
+      rdf:type spinmap:Mapping-0-1 ;
+      spinmap:context saref2fanfpai:ControlSpace-Function ;
+      spinmap:expression <http://ontology.tno.nl/saref#Function> ;
+      spinmap:targetPredicate1 rdf:type ;
+    ] ;
+.
+<http://sites.google.com/site/smartappliancesproject/ontologies/fanfpai#Duration>
+  spinmap:rule [
+      rdf:type spinmap:Mapping-0-1 ;
+      spinmap:context saref2fanfpai:Duration-Interval ;
+      spinmap:expression <http://www.w3.org/2006/time#Interval> ;
+      spinmap:targetPredicate1 rdf:type ;
+    ] ;
+  spinmap:rule [
+      rdf:type spinmap:Mapping-0-1 ;
+      spinmap:context saref2fanfpai:Duration-Time ;
+      spinmap:expression <http://ontology.tno.nl/saref#Time> ;
+      spinmap:targetPredicate1 rdf:type ;
+    ] ;
+.
+<http://sites.google.com/site/smartappliancesproject/ontologies/fanfpai#DurationUnit>
+  spinmap:rule [
+      rdf:type spinmap:Mapping-0-1 ;
+      spinmap:context saref2fanfpai:DurationUnit-TemporalUnit ;
+      spinmap:expression <http://www.w3.org/2006/time#TemporalUnit> ;
+      spinmap:targetPredicate1 rdf:type ;
+    ] ;
+.
+<http://sites.google.com/site/smartappliancesproject/ontologies/fanfpai#Element>
+  spinmap:rule [
+      rdf:type spinmap:Mapping-0-1 ;
+      spinmap:context saref2fanfpai:Element-Profile ;
+      spinmap:expression <http://ontology.tno.nl/saref#Profile> ;
+      spinmap:targetPredicate1 rdf:type ;
+    ] ;
+.
+<http://sites.google.com/site/smartappliancesproject/ontologies/fanfpai#Energy>
+  spinmap:rule [
+      rdf:type spinmap:Mapping-0-1 ;
+      spinmap:context saref2fanfpai:Energy-Energy ;
+      spinmap:expression <http://ontology.tno.nl/saref#Energy> ;
+      spinmap:targetPredicate1 rdf:type ;
+    ] ;
+.
+<http://sites.google.com/site/smartappliancesproject/ontologies/fanfpai#EnergyProfile>
+  spinmap:rule [
+      rdf:type spinmap:Mapping-0-1 ;
+      spinmap:context saref2fanfpai:EnergyProfile-Profile ;
+      spinmap:expression <http://ontology.tno.nl/saref#Profile> ;
+      spinmap:targetPredicate1 rdf:type ;
+    ] ;
+.
+<http://sites.google.com/site/smartappliancesproject/ontologies/fanfpai#EnergyStorage>
+  spinmap:rule [
+      rdf:type spinmap:Mapping-0-1 ;
+      spinmap:context saref2fanfpai:EnergyStorage-EnergyRelated ;
+      spinmap:expression <http://ontology.tno.nl/saref#EnergyRelated> ;
+      spinmap:targetPredicate1 rdf:type ;
+    ] ;
+.
+<http://sites.google.com/site/smartappliancesproject/ontologies/fanfpai#EnergyUnit>
+  spinmap:rule [
+      rdf:type spinmap:Mapping-0-1 ;
+      spinmap:context saref2fanfpai:EnergyUnit-EnergyUnit ;
+      spinmap:expression <http://ontology.tno.nl/saref#EnergyUnit> ;
+      spinmap:targetPredicate1 rdf:type ;
+    ] ;
+.
+<http://sites.google.com/site/smartappliancesproject/ontologies/fanfpai#Power>
+  spinmap:rule [
+      rdf:type spinmap:Mapping-0-1 ;
+      spinmap:context saref2fanfpai:Power-Power ;
+      spinmap:expression <http://ontology.tno.nl/saref#Power> ;
+      spinmap:targetPredicate1 rdf:type ;
+    ] ;
+.
+<http://sites.google.com/site/smartappliancesproject/ontologies/fanfpai#PowerUnit>
+  spinmap:rule [
+      rdf:type spinmap:Mapping-0-1 ;
+      spinmap:context saref2fanfpai:PowerUnit-PowerUnit ;
+      spinmap:expression <http://ontology.tno.nl/saref#PowerUnit> ;
+      spinmap:targetPredicate1 rdf:type ;
+    ] ;
+.
+<http://sites.google.com/site/smartappliancesproject/ontologies/fanfpai#Resource>
+  spinmap:rule [
+      rdf:type spinmap:Mapping-0-1 ;
+      spinmap:context saref2fanfpai:Resource-Device ;
+      spinmap:expression <http://ontology.tno.nl/saref#Device> ;
+      spinmap:targetPredicate1 rdf:type ;
+    ] ;
+.
+<http://sites.google.com/site/smartappliancesproject/ontologies/fanfpai#TimeShifter>
+  spinmap:rule [
+      rdf:type spinmap:Mapping-0-1 ;
+      spinmap:context saref2fanfpai:TimeShifter-EnergyRelated ;
+      spinmap:expression <http://ontology.tno.nl/saref#EnergyRelated> ;
+      spinmap:targetPredicate1 rdf:type ;
+    ] ;
+.
+<http://sites.google.com/site/smartappliancesproject/ontologies/fanfpai#TimeShifterControlSpace>
+  spinmap:rule [
+      rdf:type spinmap:Mapping-0-1 ;
+      spinmap:context saref2fanfpai:TimeShifterControlSpace-FunctionCategory ;
+      spinmap:expression <http://ontology.tno.nl/saref#FunctionCategory> ;
+      spinmap:targetPredicate1 rdf:type ;
+    ] ;
+.
+<http://sites.google.com/site/smartappliancesproject/ontologies/fanfpai#UncontrolledControlSpace>
+  spinmap:rule [
+      rdf:type spinmap:Mapping-0-1 ;
+      spinmap:context saref2fanfpai:UncontrolledControlSpace-FunctionCategory ;
+      spinmap:expression <http://ontology.tno.nl/saref#FunctionCategory> ;
+      spinmap:targetPredicate1 rdf:type ;
+    ] ;
+.
+<http://sites.google.com/site/smartappliancesproject/ontologies/fanfpai#UncontrolledLoadOrGeneration>
+  spinmap:rule [
+      rdf:type spinmap:Mapping-0-1 ;
+      spinmap:context saref2fanfpai:UncontrolledLoadOrGeneration-EnergyRelated ;
+      spinmap:expression <http://ontology.tno.nl/saref#EnergyRelated> ;
+      spinmap:targetPredicate1 rdf:type ;
+    ] ;
+.
