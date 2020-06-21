@@ -1,0 +1,30 @@
+{
+  "result": {
+    "id": "0c61b5f2-bed3-4026-999c-ec7b285e93e6",
+    "object": "sensor",
+    "gateway": "dddaca2b-27df-49c7-98cf-4e4ae09a526d",
+    "node": "e9a2222e-ffdc-4cf7-8a17-55fdf6f29b87",
+    "_tag": "0c61b5f2-bed3-4026-999c-ec7b285e93e6",
+    "payload": {
+      "size": 8,
+      "type": "double",
+      "retention": 259200
+    },
+    "name": "LEQ",
+    "hwid": "",
+    "type": "localasyncsensor",
+    "parameters": "{\"cost\":100}",
+    "scale": 1,
+    "offset": 0,
+    "max": 200,
+    "min": 0,
+    "units": "dB",
+    "mobile": 0,
+    "latitude": 0,
+    "longitude": 0,
+    "active": 1,
+    "timestamp": 1589540300,
+    "sampleRate": 10000,
+    "userData": "{}"
+  }
+}

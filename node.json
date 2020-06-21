@@ -1,0 +1,17 @@
+{
+  "result": {
+    "id": "e9a2222e-ffdc-4cf7-8a17-55fdf6f29b87",
+    "object": "node",
+    "interface": "23402c9b-5afd-4e7a-8603-57d8122c0c45",
+    "name": "Noise meter",
+    "type": "local",
+    "parameters": "{}",
+    "hwid": "",
+    "mobile": 0,
+    "latitude": 0,
+    "longitude": 0,
+    "active": 1,
+    "timestamp": 1589540225,
+    "userData": "{}"
+  }
+}

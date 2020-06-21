@@ -1,0 +1,13 @@
+saref:MicroRenewable
+  rdf:type owl:Class ;
+                     
+                     rdfs:subClassOf saref:FunctionRelated ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty saref:accomplishes ;
+                                       owl:hasValue saref:EnergyEfficiency
+                                     ] ;
+                     
+                     rdfs:comment "A device that generates renewable energy from natural resources such as teh sun, wind and water"^^xsd:string ;
+                     
+                     rdfs:label "Micro renewable"^^xsd:string .
+

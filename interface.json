@@ -1,0 +1,14 @@
+{
+  "result": {
+    "id": "23402c9b-5afd-4e7a-8603-57d8122c0c45",
+    "object": "interface",
+    "gateway": "dddaca2b-27df-49c7-98cf-4e4ae09a526d",
+    "name": "local",
+    "type": "local",
+    "parameters": "{}",
+    "hwid": null,
+    "active": 1,
+    "userData": "{}"
+  }
+}
+
