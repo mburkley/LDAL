@@ -6,6 +6,13 @@ var sosa = require('./sosa');
 var saref = require('./saref');
 var htmlhelp = require('./htmlhelp');
 
+/*
+ *  Read configuration parameters from a JSON file.  This avoids
+ *  hard-coding username, password, etc, in the code
+ */
+var rawdata = fs.readFileSync('config.json');
+var config = JSON.parse(rawdata);
+
 function listGateways (res)
 {
     var text=
@@ -13,38 +20,38 @@ function listGateways (res)
         '<ul>'+
         '<li>Environmental Monitoring Gateway'+
             '<ul><li>SAREF '+
-                htmlhelp.ref ('/SAREF/list/dddaca2b-27df-49c7-98cf-4e4ae09a526d')+
+                htmlhelp.ref ('/LDAL/SAREF/list/'+config.gw_environ)+
                 '</li>'+
             '<li>SOSA/SSN '+
-                htmlhelp.ref ('/SOSA/list/dddaca2b-27df-49c7-98cf-4e4ae09a526d')+
+                htmlhelp.ref ('/LDAL/SOSA/list/'+config.gw_environ)+
                 '</li>'+
             '</ul></li>'+
         '<li>Solar Energy Gateway'+
             '<ul><li>SAREF '+
-                htmlhelp.ref ('/SAREF/list/1531bee7-530e-4c38-8764-45fb3a13dd32')+
+                htmlhelp.ref ('/LDAL/SAREF/list/'+config.gw_solar)+
                 '</li>'+
             '<li>SOSA/SSN '+
-                htmlhelp.ref ('/SOSA/list/1531bee7-530e-4c38-8764-45fb3a13dd32')+
+                htmlhelp.ref ('/LDAL/SOSA/list/'+config.gw_solar)+
                 '</li>'+
             '</ul></li>'+
         '<li>Machine Monitoring Gateway'+
             '<ul><li>SAREF '+
-                htmlhelp.ref ('/SAREF/list/797f7f5d-e8e0-416c-9a36-36575ed4f4ce')+
+                htmlhelp.ref ('/LDAL/SAREF/list/'+config.gw_machine)+
                 '</li>'+
             '<li>SOSA/SSN '+
-                htmlhelp.ref ('/SOSA/list/797f7f5d-e8e0-416c-9a36-36575ed4f4ce')+
+                htmlhelp.ref ('/LDAL/SOSA/list/'+config.gw_machine)+
                 '</li>'+
             '</ul></li>'+
         '<li>Sample Data'+
             '<ul><li>SAREF '+
-                htmlhelp.ref ('/SAREF/measurement/'+
-                              'de0a210e-bb2e-44a0-bc81-26af425e8413/'+
-                              '2020-05-10T00:00:00/2020-05-20T00:00:00')+
+                htmlhelp.ref ('/LDAL/SAREF/measurement/'+
+                              config.gw_solar+
+                              '/2020-05-10T00:00:00/2020-05-20T00:00:00')+
                 '</li>'+
             '<li>SOSA '+
-                htmlhelp.ref ('/SOSA/observation/'+
-                              'de0a210e-bb2e-44a0-bc81-26af425e8413/'+
-                              '2020-05-10T00:00:00/2020-05-20T00:00:00')+
+                htmlhelp.ref ('/LDAL/SOSA/observation/'+
+                              config.gw_solar+
+                              '/2020-05-10T00:00:00/2020-05-20T00:00:00')+
                 '</li>'+
             '</ul></li>'+
         '</ul></body>';

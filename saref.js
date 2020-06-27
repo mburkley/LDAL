@@ -90,13 +90,13 @@ function device (res, html, uuidSensor, noHeaders)
                         '  saref:consistsOf saref:Device ;\n'+
                         '  saref:measuresProperty '+
                             htmlhelp.link (html, 'ldal:property-'+uuidSensor,
-                                    '/SAREF/property/'+uuidSensor)+' ;\n'+
+                                    '/LDAL/SAREF/property/'+uuidSensor)+' ;\n'+
                         '  saref:hasProfile '+
                             htmlhelp.link (html, 'ldal:profile-'+uuidSensor,
-                                    '/SAREF/profile/'+uuidSensor)+' ;\n'+
+                                    '/LDAL/SAREF/profile/'+uuidSensor)+' ;\n'+
                         '  saref:makesMeasurement '+
                             htmlhelp.link (html, 'ldal:measurement-'+uuidSensor,
-                                     '/SAREF/measurement/'+uuidSensor)+' ;\n'+
+                                     '/LDAL/SAREF/measurement/'+uuidSensor)+' ;\n'+
                         '  saref:hasDescription "'+sensor.name+'"^^xsd:string ;\n'+
                         '  saref:hasManufacturer "'+node.hwid+'"^^xsd:string ;\n'+
                         '  saref:hasModel "'+node.name+'"^^xsd:string ;\n');
@@ -134,13 +134,13 @@ function profile (res, html, uuid, tsBegin, tsEnd)
                 '  rdf:type saref:Profile ;\n'+
                 '  saref:hasPrice '+
                     htmlhelp.link (html, 'ldal:device-'+uuid,
-                             '/SAREF/device/'+uuid)+' ;\n'+
+                             '/LDAL/SAREF/device/'+uuid)+' ;\n'+
                 '  saref:hasTime '+
                     htmlhelp.link (html, 'ldal:measurement-'+uuid,
-                             '/SAREF/measurement/'+uuid)+' ;\n'+
+                             '/LDAL/SAREF/measurement/'+uuid)+' ;\n'+
                 '  saref:isAbout '+
                     htmlhelp.link (html, 'ldal:property-'+uuid,
-                             '/SAREF/property/'+uuid)+' ;\n');
+                             '/LDAL/SAREF/property/'+uuid)+' ;\n');
 
             if (html)
                 res.write ("</pre></html></body>");
@@ -169,10 +169,10 @@ function property (res, html, uuid)
                 'ldal:device-'+uuid+' ;\n'+
                 '  saref:isMeasuredByDevice '+
                     htmlhelp.link (html, 'ldal:device-'+uuid,
-                             '/SAREF/device/'+uuid)+' ;\n'+
+                             '/LDAL/SAREF/device/'+uuid)+' ;\n'+
                 '  saref:relatesToMeasurement '+
                     htmlhelp.link (html, 'ldal:measurement-'+uuid,
-                             '/SAREF/measurement/'+uuid)+' ;\n');
+                             '/LDAL/SAREF/measurement/'+uuid)+' ;\n');
 
             if (html)
                 res.write ("</pre></html></body>");
@@ -215,7 +215,7 @@ function measurement (res, html, uuidSensor, tsBegin, tsEnd)
                             '  saref:relatesToProperty '+
                                 htmlhelp.link (html,
                                 'ldal:property-'+uuidSensor,
-                                '/SAREF/device/'+uuidSensor)+' ;\n'+
+                                '/LDAL/SAREF/device/'+uuidSensor)+' ;\n'+
                             '  saref:hasTimeStamp "'+data[i].time+'"^^xsd:datetime ;\n'+
                             '  saref:hasValue "'+data[i].val+'"^^xsd:string .\n\n');
                     }
@@ -285,7 +285,7 @@ function listSensors (res, html, uuidGateway)
             console.log("res="+util.inspect(gateway));
             for (var i = 0; i < gateway.sensors.length; i++)
             {
-                res.write ("<li>"+htmlhelp.ref ("/SAREF/device/"+gateway.sensors[i]));
+                res.write ("<li>"+htmlhelp.ref ("/LDAL/SAREF/device/"+gateway.sensors[i]));
             }
             res.write ("</ul></body>");
             res.end();

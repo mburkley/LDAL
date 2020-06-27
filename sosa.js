@@ -48,19 +48,19 @@ function observation (res, html, uuidSensor, tsBegin, tsEnd)
             res.write(prefix(html) +
                     htmlhelp.link (html, 
                         'ldal:observation/'+uuidSensor+'/'+tsBegin+'/'+tsEnd,
-                        '/SOSA/observation/'+uuidSensor+'/'+tsBegin+'/'+tsEnd)+'\n'+
+                        '/LDAL/SOSA/observation/'+uuidSensor+'/'+tsBegin+'/'+tsEnd)+'\n'+
                 '  sosa:observedProperty '+
                     htmlhelp.link (html, 
                         'ldal:property/'+uuidSensor,
-                        '/SOSA/property/'+uuidSensor)+' ;\n'+
+                        '/LDAL/SOSA/property/'+uuidSensor)+' ;\n'+
                 '  sosa:madeBySensor '+
                     htmlhelp.link (html, 
                         'ldal:sensor/'+uuidSensor,
-                        '/SOSA/sensor/'+uuidSensor)+' ;\n'+
+                        '/LDAL/SOSA/sensor/'+uuidSensor)+' ;\n'+
                 '  sosa:hasFeatureOfInterest '+
                     htmlhelp.link (html, 
                         'ldal:sample/'+uuidSensor,
-                        '/SOSA/sample/'+uuidSensor)+' ;\n'+
+                        '/LDAL/SOSA/sample/'+uuidSensor)+' ;\n'+
                 '  sosa:phenomenonTime [\n'+
                 '      rdf:type time:Interval ;\n'+
                 '      time:hasBeginning [\n'+
@@ -138,7 +138,7 @@ function observableProperty (res, html, uuidSensor)
                 '  sosa:isObservedBy '+
                     htmlhelp.link (html, 
                         'ldal:sensor/'+uuidSensor,
-                        '/SOSA/sensor/'+uuidSensor)+' .\n');
+                        '/LDAL/SOSA/sensor/'+uuidSensor)+' .\n');
 
             if (html)
                 res.write ("</pre></html></body>");
@@ -211,6 +211,15 @@ function execute (response, html, property, uuid, tsBegin, tsEnd)
 {
     switch (property)
     {
+    /*  Implement some non SOSA endpoints for testing and human interactions */
+    case "list":
+        listSensors (response, html, uuid);
+        break;
+    case "dummy":
+        dummy (response, uuid, tsBegin, tsEnd);
+        break;
+
+    /*  Implement the SAREF class endpoints */
     case "sensor":
         sensor (response, html, uuid, tsBegin, tsEnd);
         break;
