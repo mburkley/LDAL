@@ -1,10 +1,1 @@
-{
-    "user": "*****",
-    "pass": "*****",
-    "url": "staging.ubiworx.com/v2/",
-    "gateway": "dddaca2b-27df-49c7-98cf-4e4ae09a526d",
-    "node-noise": "e9a2222e-ffdc-4cf7-8a17-55fdf6f29b87",
-    "node-tilt": "b3236b92-a373-4979-af0a-fe232682a836",
-    "node-geo": "52b214eb-e4fb-4bdd-9154-84db6429e72f"
-}
-
+config-private.json
