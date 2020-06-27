@@ -71,17 +71,21 @@ http.createServer(function (req, res)
      *  are accepted we report a 404.  If both are accepted we default to turtle.
      */
     console.log ("accept="+req.headers.accept);
-    var accept = req.headers.accept.split(',')
     var html = false;
     var turtle = false;
 
-    for (var i = 0; i < accept.length; i++)
+    if (req.headers.accept)
     {
-        if (accept[i]=="text/html")
-            html = true;
+        var accept = req.headers.accept.split(',')
 
-        if (accept[i]=="text/turtle")
-            turtle = true;
+        for (var i = 0; i < accept.length; i++)
+        {
+            if (accept[i]=="text/html")
+                html = true;
+
+            if (accept[i]=="text/turtle")
+                turtle = true;
+        }
     }
 
     if (!html && !turtle)
@@ -99,7 +103,7 @@ http.createServer(function (req, res)
 
     switch (s[1])
     {
-    case "":
+    case "listgw":
         /*  If no ontology is specified, then instead list the gateways
          *  presented as examples.
          */
