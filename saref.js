@@ -27,8 +27,7 @@ function prefix (html)
             htmlhelp.prefix (html, 'dcterms', 'http://purl.org/dc/terms/')+
             htmlhelp.prefix (html, 'time', 'http://www.w3.org/2006/time#')+
             htmlhelp.prefix (html, 'xsd', 'http://www.w3.org/2001/XMLSchema#')+
-            htmlhelp.prefix (html, 'saref', 'http://www.burkley.net/LDAL/SAREF/')+
-            '\n');
+            htmlhelp.prefix (html, 'saref', 'http://www.burkley.net/LDAL/SAREF/'));
 }
 
 /*
@@ -40,6 +39,7 @@ function dummy (res, html, uuidSensor)
 {
     var text=
         prefix(html) +
+        '\n'+
         'ldal:dummy\n'+
         '  saref:consistsOf saref:Device ;\n'+
         '  saref:measuresProperty ldal:property-'+uuidSensor+' ;\n'+
@@ -79,6 +79,7 @@ function device (html, uuidSensor, callback)
                     console.log ("html="+html);
 
                     var text = 
+                        '\n'+
                         'ldal:device-'+sensor.node+'\n'+
                         '  saref:consistsOf saref:Device ;\n'+
                         '  saref:measuresProperty '+
@@ -125,7 +126,7 @@ function deviceSingle (res, html, uuidSensor)
 
             res.end(null);
         }
-    }
+    });
 }
 
 function deviceMultiple (res, html, uuidGateway)
@@ -156,7 +157,7 @@ function deviceMultiple (res, html, uuidGateway)
                  *  gateway.  When the last sensor has returned (remain==0) then
                  *  close the reponse.
                  */
-                device (html, uuidSensor, function (text)
+                device (html, gateway.sensors[i], function (text)
                 {
                     remain--;
 
@@ -198,6 +199,7 @@ function profile (res, html, uuid, tsBegin, tsEnd)
 
             res.write (
                 prefix(html) +
+                '\n'+
                 'ldal:profile-'+uuid+' ;\n'+
                 '  rdf:type saref:Profile ;\n'+
                 '  saref:hasPrice '+
@@ -234,6 +236,7 @@ function property (res, html, uuid)
                 res.write ("<body><html><pre>");
             res.write (
                 prefix(html) +
+                '\n'+
                 'ldal:device-'+uuid+' ;\n'+
                 '  saref:isMeasuredByDevice '+
                     htmlhelp.link (html, 'ldal:device-'+uuid,
@@ -278,6 +281,7 @@ function measurement (res, html, uuidSensor, tsBegin, tsEnd)
                     for (var i = 0; i < data.length; i++)
                     {
                         res.write (
+                            '\n'+
                             'ldal:measurement-'+uuidSensor+'-'+data[i].time+'\n'+
                             '  saref:isMeasuredIn om:'+sensor.units+' ;\n'+
                             '  saref:relatesToProperty '+
@@ -302,7 +306,7 @@ function microRenewable (res, uuidSensor, tsBegin, tsEnd)
 {
     htmlhelp.respond200 (res, html);
     res.write (prefix());
-    res.write ('saref:accomplishes saref:EnergyEfficiency ;\n');
+    res.write ('saref:accomplishes saref:EnergyEfficiency .\n');
     res.end();
 }
 
@@ -310,11 +314,12 @@ function meteringFunction (res, uuidSensor, tsBegin, tsEnd)
 {
     htmlhelp.respond200 (res, html);
     res.write (prefix()+
+        '\n'+
         'rdf:type saref:MeteringFunction ;\n'+
         'hasCommand: saref:GetCurrentMeterValueCommand ;\n'+
         'hasMeterReading: saref:Measurement ;\n'+
         'hasMeterReadingType: saref:Property ;\n'+
-        'rdfs:label \"Metering Function X\"^^xsd:string ;\n');
+        'rdfs:label \"Metering Function X\"^^xsd:string .\n');
     res.end();
 }
 
@@ -322,43 +327,20 @@ function powerUnit (res, uuidSensor, tsBegin, tsEnd)
 {
     htmlhelp.respond200 (res, html);
     res.write (prefix()+
+        '\n'+
         'rdf:type saref:PowerUnit ;\n'+
-        'rdfs:label "KiloWatt"^^xsd:string ;\n');
+        'rdfs:label "KiloWatt"^^xsd:string .\n');
     res.end();
 }
 
 function meter (res, uuidSensor, tsBegin, tsEnd)
 {
     htmlhelp.respond200 (res, html);
-    res.write (prefix());
-    res.write ('rdf:type saref:Meter ;\n');
-    res.write ('saref:hasFunction saref:MeteringFunction ;\n');
+    res.write (prefix()+
+        '\n'+
+        'rdf:type saref:Meter ;\n'+
+        'saref:hasFunction saref:MeteringFunction .\n');
     res.end();
-}
-
-function listSensors (res, html, uuidGateway)
-{
-    console.log ("saref gw="+uuidGateway);
-    ubiworx.queryGateway (uuidGateway, function (gateway)
-    {
-        if (gateway == null)
-        {
-            htmlhelp.respond404 (res, html);
-            res.end(null);
-        }
-        else
-        {
-            htmlhelp.respond200 (res, html);
-            res.write ("<body><ul>");
-            console.log("res="+util.inspect(gateway));
-            for (var i = 0; i < gateway.sensors.length; i++)
-            {
-                res.write ("<li>"+htmlhelp.ref ("/LDAL/SAREF/device/"+gateway.sensors[i]));
-            }
-            res.write ("</ul></body>");
-            res.end();
-        }
-    });
 }
 
 function execute (response, html, endpoint, uuid, tsBegin, tsEnd)
@@ -369,9 +351,6 @@ function execute (response, html, endpoint, uuid, tsBegin, tsEnd)
     {
     /*  Implement some non SAREF endpoints for testing and human interactions */
     case "list":
-        listSensors (response, html, uuid);
-        break;
-    case "listont":
         deviceMultiple (response, html, uuid);
         break;
     case "dummy":
