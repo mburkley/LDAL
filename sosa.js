@@ -215,11 +215,8 @@ function execute (response, html, property, uuid, tsBegin, tsEnd)
     case "list":
         listSensors (response, html, uuid);
         break;
-    case "dummy":
-        dummy (response, uuid, tsBegin, tsEnd);
-        break;
 
-    /*  Implement the SAREF class endpoints */
+    /*  Implement the SOSA class endpoints */
     case "sensor":
         sensor (response, html, uuid, tsBegin, tsEnd);
         break;

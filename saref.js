@@ -57,14 +57,13 @@ function dummy (res, html, uuidSensor)
  *  the parent node of the sensor to provide additional metadata such as
  *  manufacturer and model.
  */
-function device (res, html, uuidSensor, noHeaders)
+function device (html, uuidSensor, callback)
 {
     ubiworx.querySensor (uuidSensor, function (sensor)
     {
         if (sensor == null)
         {
-            htmlhelp.respond404 (res, html);
-            res.end(null);
+            callback (null);
         }
         else
         {
@@ -72,21 +71,15 @@ function device (res, html, uuidSensor, noHeaders)
             {
                 if (node == null)
                 {
-                    html.respond404 (res);
-                    res.end(null);
+                    callback (null);
                 }
                 else
                 {
                     console.log("output device");
                     console.log ("html="+html);
 
-                    htmlhelp.respond200 (res, html);
-
-                    if (html)
-                        res.write ("<body><html><pre>");
-
-                    res.write (prefix(html));
-                    res.write ('ldal:device-'+sensor.node+'\n'+
+                    var text = 
+                        'ldal:device-'+sensor.node+'\n'+
                         '  saref:consistsOf saref:Device ;\n'+
                         '  saref:measuresProperty '+
                             htmlhelp.link (html, 'ldal:property-'+uuidSensor,
@@ -99,17 +92,92 @@ function device (res, html, uuidSensor, noHeaders)
                                      '/LDAL/SAREF/measurement/'+uuidSensor)+' ;\n'+
                         '  saref:hasDescription "'+sensor.name+'"^^xsd:string ;\n'+
                         '  saref:hasManufacturer "'+node.hwid+'"^^xsd:string ;\n'+
-                        '  saref:hasModel "'+node.name+'"^^xsd:string ;\n');
+                        '  saref:hasModel "'+node.name+'"^^xsd:string ;\n';
 
-                    if (html)
-                        res.write ("</pre></html></body>");
-
-                    console.log ("ending");
-                    res.end();
+                    callback (text);
                 }
             })
         }
     })
+}
+
+function deviceSingle (res, html, uuidSensor)
+{
+    device (html, uuidSensor, function (text)
+    {
+        if (text == null)
+        {
+            htmlhelp.respond404 (res, html);
+            res.end(null);
+        }
+        else
+        {
+            htmlhelp.respond200 (res, html);
+
+            if (html)
+                res.write ("<body><html><pre>");
+
+            res.write (prefix(html));
+            res.write (text);
+
+            if (html)
+                res.write ("</pre></html></body>");
+
+            res.end(null);
+        }
+    }
+}
+
+function deviceMultiple (res, html, uuidGateway)
+{
+    console.log ("saref gw="+uuidGateway);
+    ubiworx.queryGateway (uuidGateway, function (gateway)
+    {
+        if (gateway == null)
+        {
+            htmlhelp.respond404 (res, html);
+            res.end(null);
+        }
+        else
+        {
+            console.log("res="+util.inspect(gateway));
+
+            htmlhelp.respond200 (res, html);
+
+            if (html)
+                res.write ("<body><html><pre>");
+
+            res.write (prefix(html));
+            var remain = gateway.sensors.length;
+
+            for (var i = 0; i < gateway.sensors.length; i++)
+            {
+                /*  Generate a callback for each sensor on the list from the
+                 *  gateway.  When the last sensor has returned (remain==0) then
+                 *  close the reponse.
+                 */
+                device (html, uuidSensor, function (text)
+                {
+                    remain--;
+
+                    if (text != null)
+                    {
+                        res.write (text);
+                    }
+
+                    console.log("remain="+remain);
+
+                    if (remain == 0)
+                    {
+                        if (html)
+                            res.write ("</pre></html></body>");
+
+                        res.end(null);
+                    }
+                });
+            }
+        }
+    });
 }
 
 function profile (res, html, uuid, tsBegin, tsEnd)
@@ -303,13 +371,16 @@ function execute (response, html, endpoint, uuid, tsBegin, tsEnd)
     case "list":
         listSensors (response, html, uuid);
         break;
+    case "listont":
+        deviceMultiple (response, html, uuid);
+        break;
     case "dummy":
         dummy (response, uuid, tsBegin, tsEnd);
         break;
 
     /*  Implement the SAREF class endpoints */
     case "device":
-        device (response, html, uuid);
+        deviceSingle (response, html, uuid);
         break;
     case "profile":
         profile (response, html, uuid);

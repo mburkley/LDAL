@@ -93,5 +93,33 @@ function queryDataMultiple (uuid, tsbegin, tsend, callback)
     queryAPI (ux_url, callback);
 }
 
+function queryDataStream (uuid, tsbegin, tsend, callback)
+{
+    var ux_url="https://"+config.user+":"+config.pass+"@"+config.url+
+               "sensors/"+uuid+"/data?start="+tsbegin+
+               "&end="+tsend;
+
+    var temp_time;
+    var temp_val;
+
+    // console.log("Requesting ... "+ux_url);
+
+    request(
+    {
+        url: ux_url,
+        json: true
+
+    }, function (error, response, body)
+    {
+        // console.log("query: sta="+response.statusCode);
+        if (error || response.statusCode != 200)
+            callback (null);
+        else
+        {
+            callback (body.result);
+        }
+    });
+}
+
 module.exports.queryDataMultiple = queryDataMultiple;
 
