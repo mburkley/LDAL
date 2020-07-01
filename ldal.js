@@ -1,3 +1,31 @@
+// ==============================
+//  Copyright 2020 Mark Burkley
+//  
+//  Permission is hereby granted, free of charge, to any person obtaining a copy of
+//  this software and associated documentation files (the "Software"), to deal in
+//  the Software without restriction, including without limitation the rights to
+//  use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+//  the Software, and to permit persons to whom the Software is furnished to do so,
+//  subject to the following conditions:
+//  
+//  The above copyright notice and this permission notice shall be included in all
+//  copies or substantial portions of the Software.
+//  
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+//  FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+//  COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+//  IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+//  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+//
+// ==============================
+//
+//  This is the main LDAL entry point.  It creates a HTTP service that responds
+//  to requests for RDF URIs and routes the requests to the appropriate ontology
+//  module.
+//
+// ==============================
+
 var url = require('url');
 var http = require('http');
 var request = require("request");
@@ -131,47 +159,5 @@ http.createServer(function (req, res)
         res.end(null);
         break;
     }
-
-        /*
-        {
-            var text=
-                prefix() +
-            '\n'+
-            'saref-temp:SenseTemperature rdf:type saref:Service ;\n'+
-            'rdfs:label "Sense temperature"^^xsd:string ;\n'+
-            'saref:hasInputParameter saref-temp:Temperature ;\n'+
-            'saref:hasOutputParameter saref-temp:Temperature ;\n'+
-            '\n'+
-            'saref:isOfferedBy saref-temp:TemperatureSensor_TEMP01 ;\n'+
-            'saref:represents saref-temp:SensingFunction ;\n'+
-            '\n'+
-            'saref-temp:SensingFunction\n'+
-            'rdf:type saref:SensingFunction ;\n'+
-            'rdfs:label "Sensing function"^^xsd:string ;\n'+
-            'saref:hasCommand saref-temp:GetSensingDataCommand ;\n'+
-            'saref:hasSensorType "Temperature"^^xsd:string ;\n'+
-            '\n'+
-            'saref-temp:Temperature\n'+
-            'rdf:type saref:Temperature ;\n'+
-            'rdfs:label "Temperature"^^xsd:string ;\n'+
-            // 'saref:hasValue "18.2"^^xsd:string ;\n'+
-            // 'saref:hasValue "'+temp_val+'"^^xsd:string ;\n'+
-            // 'saref:hasTimestamp "2019-03-31T15:52:21.871725Z"^^xsd:dateTime ;\n'+
-            // 'saref:hasTimestamp "'+temp_time+'"^^xsd:dateTime ;\n'+
-            '\n'+
-            'saref-temp:TemperatureSensor_TEMP01\n'+
-            'rdf:type saref:TemperatureSensor ;\n'+
-            'rdfs:label "Temperature sensor TEMP01"^^xsd:string ;\n'+
-            'saref:IsUsedFor saref-temp:Temperature ;\n'+
-            'saref:hasCategory saref:Sensor ;\n'+
-            'saref:hasDescription "Temperature sensor TEMP01"^^xsd:string ;\n'+
-            'saref:hasFunction saref-temp:SensingFunction ;\n'+
-            'saref:hasManufacturer "Oregon Scientific"^^xsd:string ;\n'+
-            'saref:hasModel "THGR810"^^xsd:string ;\n'+
-            'saref:isLocatedIn saref-temp:BuildingSpace_EntranceHall ;\n'+
-            'saref:offers saref-temp:SenseTemperature ;\n'
-        }
-        res.writeHead(200, {'Content-Type': 'text/turtle'});
-        */
 }).listen(8080);
 
