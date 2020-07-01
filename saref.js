@@ -47,7 +47,7 @@ function dummy (res, html, uuidSensor)
         '  saref:makesMeasurement ldal:measurement-'+uuidSensor+' ;\n'+
         '  saref:hasDescription "description"^^xsd:string ;\n'+
         '  saref:hasManufacturer "manufacturer"^^xsd:string ;\n'+
-        '  saref:hasModel "model"^^xsd:string ;\n';
+        '  saref:hasModel "model"^^xsd:string .\n';
 
     htmlhelp.respond200 (res, html);
     res.end(text);
@@ -93,7 +93,7 @@ function device (html, uuidSensor, callback)
                                      '/LDAL/SAREF/measurement/'+uuidSensor)+' ;\n'+
                         '  saref:hasDescription "'+sensor.name+'"^^xsd:string ;\n'+
                         '  saref:hasManufacturer "'+node.hwid+'"^^xsd:string ;\n'+
-                        '  saref:hasModel "'+node.name+'"^^xsd:string ;\n';
+                        '  saref:hasModel "'+node.name+'"^^xsd:string .\n';
 
                     callback (text);
                 }
@@ -202,15 +202,15 @@ function profile (res, html, uuid, tsBegin, tsEnd)
                 '\n'+
                 'ldal:profile-'+uuid+' ;\n'+
                 '  rdf:type saref:Profile ;\n'+
-                '  saref:hasPrice '+
-                    htmlhelp.link (html, 'ldal:device-'+uuid,
-                             '/LDAL/SAREF/device/'+uuid)+' ;\n'+
+                '  saref:consistsOf '+
+                    htmlhelp.link (html, 'ldal:profile-'+uuid,
+                             '/LDAL/SAREF/profile/'+uuid)+' ;\n'+
                 '  saref:hasTime '+
                     htmlhelp.link (html, 'ldal:measurement-'+uuid,
                              '/LDAL/SAREF/measurement/'+uuid)+' ;\n'+
                 '  saref:isAbout '+
                     htmlhelp.link (html, 'ldal:property-'+uuid,
-                             '/LDAL/SAREF/property/'+uuid)+' ;\n');
+                             '/LDAL/SAREF/property/'+uuid)+' .\n');
 
             if (html)
                 res.write ("</pre></html></body>");
@@ -243,7 +243,7 @@ function property (res, html, uuid)
                              '/LDAL/SAREF/device/'+uuid)+' ;\n'+
                 '  saref:relatesToMeasurement '+
                     htmlhelp.link (html, 'ldal:measurement-'+uuid,
-                             '/LDAL/SAREF/measurement/'+uuid)+' ;\n');
+                             '/LDAL/SAREF/measurement/'+uuid)+' .\n');
 
             if (html)
                 res.write ("</pre></html></body>");
@@ -253,7 +253,7 @@ function property (res, html, uuid)
     })
 }
 
-function measurement (res, html, uuidSensor, tsBegin, tsEnd)
+function measurement (res, html, uuidSensor, tsBegin, tsEnd, dataFunction)
 {
     ubiworx.querySensor (uuidSensor, function (sensor)
     {
@@ -264,8 +264,9 @@ function measurement (res, html, uuidSensor, tsBegin, tsEnd)
         }
         else
         {
-            ubiworx.queryDataMultiple (uuidSensor, tsBegin, tsEnd, function (data)
+            dataFunction (uuidSensor, tsBegin, tsEnd, function (data)
             {
+                console.log("meas: callback");
                 if (data == null)
                 {
                     htmlhelp.respond404 (res, html);
@@ -274,8 +275,10 @@ function measurement (res, html, uuidSensor, tsBegin, tsEnd)
                 else
                 {
                     htmlhelp.respond200 (res, html);
+
                     if (html)
                         res.write ("<body><html><pre>");
+
                     res.write (prefix(html));
 
                     for (var i = 0; i < data.length; i++)
@@ -302,11 +305,59 @@ function measurement (res, html, uuidSensor, tsBegin, tsEnd)
     })
 }
 
+function stream (res, html, uuidSensor)
+{
+    ubiworx.querySensor (uuidSensor, function (sensor)
+    {
+        if (sensor == null)
+        {
+            htmlhelp.respond404 (res, html);
+            res.end(null);
+        }
+        else
+        {
+            htmlhelp.respond200 (res, html);
+
+            if (html)
+                res.write ("<body><html><pre>");
+
+            res.write (prefix(html));
+
+            ubiworx.queryDataStream (uuidSensor, function (data)
+            {
+                console.log("stream resp="+util.inspect(data));
+                if (data == null || data.utf8Data == null)
+                {
+                    console.log("WARN - ignored streamed null resp for "+uuidSensor);
+                }
+                else
+                {
+                    var d = JSON.parse (data.utf8Data);
+                    res.write (
+                        '\n'+
+                        'ldal:stream/'+uuidSensor+' ;\n'+
+                        '  saref:isMeasuredIn om:'+sensor.units+' ;\n'+
+                        '  saref:relatesToProperty '+
+                            htmlhelp.link (html,
+                            'ldal:property-'+uuidSensor,
+                            '/LDAL/SAREF/device/'+uuidSensor)+' ;\n'+
+                        '  saref:hasTimeStamp "'+
+                            d.data[0].time+'"^^xsd:datetime ;\n'+
+                        '  saref:hasValue "'+
+                            d.data[0].val+'"^^xsd:string .\n\n');
+                }
+            });
+        }
+    });
+}
+
 function microRenewable (res, uuidSensor, tsBegin, tsEnd)
 {
     htmlhelp.respond200 (res, html);
     res.write (prefix());
-    res.write ('saref:accomplishes saref:EnergyEfficiency .\n');
+    res.write ('\n'+
+               'ldal:microRenewable/'+uuidSensor+' ;\n'+
+               '  saref:accomplishes saref:energyEfficiency .\n');
     res.end();
 }
 
@@ -368,7 +419,19 @@ function execute (response, html, endpoint, uuid, tsBegin, tsEnd)
         property (response, html, uuid);
         break;
     case "measurement":
-        measurement (response, html, uuid, tsBegin, tsEnd);
+        measurement (response, html, uuid, tsBegin, tsEnd, ubiworx.queryDataMultiple);
+        break;
+    case "average":
+        measurement (response, html, uuid, tsBegin, tsEnd, ubiworx.queryDataAverage);
+        break;
+    case "sum":
+        measurement (response, html, uuid, tsBegin, tsEnd, ubiworx.queryDataSum);
+        break;
+    case "delta":
+        measurement (response, html, uuid, tsBegin, tsEnd, ubiworx.queryDataDelta);
+        break;
+    case "stream":
+        stream (response, html, uuid);
         break;
 
     default:

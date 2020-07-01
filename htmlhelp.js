@@ -35,7 +35,6 @@ function link (html, text, link)
 {
     var result = "";
 
-    console.log("htmlLink "+text);
     if (html)
         result += "<a href=\""+link+"\">";
 
@@ -44,7 +43,6 @@ function link (html, text, link)
     if (html)
         result += "</a>";
 
-    console.log("link="+result);
     return result;
 }
 
@@ -66,11 +64,8 @@ function formatUrl (html, url)
     else
         result += ">";
 
-    console.log("formaturl="+result);
     return result;
 }
-
-// module.exports.url = url;
 
 function prefix (html, prefix, url)
 {

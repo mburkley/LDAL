@@ -1,4 +1,5 @@
 var request = require("request");
+var websocket = require("websocket");
 var fs = require('fs');
 
 /*
@@ -20,7 +21,7 @@ function queryAPI (urlParam, callback)
     var temp_time;
     var temp_val;
 
-    // console.log("Requesting ... "+ux_url);
+    console.log("Requesting ... "+ux_url);
 
     request(
     {
@@ -37,6 +38,43 @@ function queryAPI (urlParam, callback)
             callback (body.result);
         }
     });
+}
+function queryWS (urlParam, uuidArray, callback)
+{
+    var ux_url="wss://"+config.url+urlParam+
+                encodeURIComponent(JSON.stringify(uuidArray));
+    console.log('url='+ux_url);
+    var client = new websocket.client(); // ux_url);
+
+    client.on ('connect', function (connection)
+    {
+        console.log ('WS connected');
+        connection.on('error', function(error)
+        {
+            console.log("WS error: " + error.toString());
+        });
+        connection.on('close', function()
+        {
+            console.log('WS server closed connection');
+        });
+        connection.on('message', function(message)
+        {
+            console.log('received message of type '+ message.type);
+            callback (message);
+            // === 'utf8') {
+            // console.log("Received: '" + message.utf8Data + "'");
+        });
+    });
+
+    var up=config.user+':'+config.pass;
+    console.log("up='"+up+", type="+up.type);
+    var auth= Buffer.from(up,'utf8').toString('base64');
+    console.log('auth='+auth);
+    client.connect (ux_url, null, null,
+        {
+            'Authorization': 'Basic '+
+                Buffer.from(config.user+':'+config.pass,'utf8').toString('base64')
+        });
 }
 
 function queryGateway (uuid, callback)
@@ -85,41 +123,52 @@ function queryDataSingle (uuid, tsbegin, tsend, callback)
 
 module.exports.queryDataSingle = queryDataSingle;
 
-function queryDataMultiple (uuid, tsbegin, tsend, callback)
+function queryDataMultipleFilter (uuid, tsbegin, tsend, filter, callback)
 {
     var ux_url="sensors/"+uuid+"/data?start="+tsbegin+
                "&end="+tsend;
 
+    if (filter)
+        ux_url += "&filter="+filter+"&limit=1";
+
     queryAPI (ux_url, callback);
 }
 
-function queryDataStream (uuid, tsbegin, tsend, callback)
+function queryDataMultiple (uuid, tsbegin, tsend, callback)
 {
-    var ux_url="https://"+config.user+":"+config.pass+"@"+config.url+
-               "sensors/"+uuid+"/data?start="+tsbegin+
-               "&end="+tsend;
-
-    var temp_time;
-    var temp_val;
-
-    // console.log("Requesting ... "+ux_url);
-
-    request(
-    {
-        url: ux_url,
-        json: true
-
-    }, function (error, response, body)
-    {
-        // console.log("query: sta="+response.statusCode);
-        if (error || response.statusCode != 200)
-            callback (null);
-        else
-        {
-            callback (body.result);
-        }
-    });
+    queryDataMultipleFilter (uuid, tsbegin, tsend, null, callback);
 }
 
 module.exports.queryDataMultiple = queryDataMultiple;
+
+function queryDataAverage (uuid, tsbegin, tsend, callback)
+{
+    queryDataMultipleFilter (uuid, tsbegin, tsend, "average", callback);
+}
+
+module.exports.queryDataAverage = queryDataAverage;
+
+function queryDataSum (uuid, tsbegin, tsend, callback)
+{
+    queryDataMultipleFilter (uuid, tsbegin, tsend, "sum", callback);
+}
+
+module.exports.queryDataSum = queryDataSum;
+
+function queryDataDelta (uuid, tsbegin, tsend, callback)
+{
+    queryDataMultipleFilter (uuid, tsbegin, tsend, "delta", callback);
+}
+
+module.exports.queryDataDelta = queryDataDelta;
+
+function queryDataStream (uuid, callback)
+{
+    var uuidArray = [uuid];
+    var ux_url="stream?sensors=";
+    queryWS (ux_url, uuidArray, callback);
+}
+
+module.exports.queryDataStream = queryDataStream;
+
 
